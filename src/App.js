@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
+import Box from './component/Box';
 
 function App() {
+  const dispatch = useDispatch();
+  const count = useSelector((state) => state.count);
+
+  const increase = () => {
+    dispatch({ type: 'INCREMENT', payload: { num: 5 } });
+    dispatch({ type: 'PLUS' });
+  };
+
+  const decrease = () => {
+    dispatch({ type: 'DECREASE', payload: { num: 5 } });
+    dispatch({ type: 'MINUS' });
+  };
+
+  const reset = () => {
+    dispatch({ type: 'RESET' });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container'>
+      <h1>{count}</h1>
+      <button onClick={increase}>+5</button>
+      <button onClick={decrease}>-5</button>
+      <button onClick={reset}>reset</button>
+      <Box />
     </div>
   );
 }
